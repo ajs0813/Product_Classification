@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.product.dao.ProductMapper">
+    <resultMap id="ProductResultMap" type="com.product.domain.Product">
+        <id property="productCode" column="product_code" />
+        <id property="productName" column="product_name" />
+        <id property="categoryCode" column="category_code"/>
+        <id property="productDate" column="product_date" />
+        <id property="unitPrice" column="unit_price" />
+        <id property="operationYn" column="operation_yn" />
+        <id property="productionDescription" column="production_description" />
+        <id property="productImage" column="product_image" />
+        <id property="createdAt" column="created_at" />
+        <id property="updatedAt" column="updated_at" />
+    </resultMap>
+
+    <select id="selectAllProduct" resultMap="ProductResultMap">
+        SELECT * FROM product;
+    </select>
+
+    <select id="selectProductsByName" resultMap="ProductResultMap" parameterType="String">
+        SELECT * FROM product WHERE product_name LIKE CONCAT(#{productName},'%');
+    </select>
+
+    <insert id="insertProduct" parameterType="com.product.domain.Product">
+        INSERT INTO product (product_code, product_name, category_code, product_date, unit_price, operation_yn, production_description, product_image)
+        VALUES (#{productCode}, #{productName}, #{categoryCode}, #{productDate}, #{unitPrice}, #{operationYn}, #{productionDescription}, #{productImage});
+    </insert>
+    <update id="updateProduct" parameterType="com.product.domain.Product">
+        UPDATE product
+        SET product_name = #{productName}, category_code = #{categoryCode}, product_date = #{productDate},
+            unit_price = #{unitPrice}, operation_yn = #{operationYn}, production_description = #{productionDescription}, product_image = #{productImage}
+        WHERE product_code = #{productCode};
+    </update>
+
+    <delete id="deleteProduct" parameterType="String">
+        DELETE FROM product WHERE product_code = #{productCode};
+    </delete>
+</mapper>

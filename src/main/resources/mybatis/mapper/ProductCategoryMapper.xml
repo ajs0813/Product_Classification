@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.product.dao.ProductCategoryMapper">
+    <resultMap id="ProductCategoryResultMap" type="com.product.domain.ProductCategory">
+        <id property="categoryCode" column="category_code" />
+        <id property="categoryName" column="category_name" />
+        <id property="deleteYn" column="delete_yn" />
+        <id property="createdAt" column="created_at" />
+        <id property="updatedAt" column="updated_at" />
+    </resultMap>
+
+    <select id="selectAllCategories" resultMap="ProductCategoryResultMap">
+        SELECT * FROM product_category;
+    </select>
+
+    <select id="selectCategoriesByName" resultMap="ProductCategoryResultMap" parameterType="String">
+        SELECT * FROM product_category WHERE category_name LIKE CONCAT(#{categoryName}, '%');
+    </select>
+
+    <insert id="insertCategory" parameterType="com.product.domain.ProductCategory">
+        INSERT INTO product_category(category_code, category_name, delete_yn)
+        VALUES (#{categoryCode}, #{categoryName}, #{deleteYn});
+    </insert>
+
+    <update id="updateCategory" parameterType="com.product.domain.ProductCategory">
+        UPDATE product_category
+        SET category_name = #{categoryName}, delete_yn = #{deleteYn}
+        WHERE category_code = #{categoryCode};
+    </update>
+
+    <delete id="deleteCategory" parameterType="String">
+        DELETE FROM product_category WHERE category_code=#{categoryCode};
+    </delete>
+</mapper>
