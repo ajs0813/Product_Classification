@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.2'  // war 플러그인 제거
+	id 'org.springframework.boot' version '3.4.2'
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -19,16 +19,9 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-
-	// ✅ 내장 톰캣을 사용할 수 있도록 providedRuntime 제거하고 implementation으로 변경
 	implementation 'org.springframework.boot:spring-boot-starter-tomcat'
-
-	// ✅ JSP 렌더링을 위한 Jasper 엔진 추가
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
-
-	// ✅ JSTL 변경: `javax.servlet:jstl` → `jakarta.servlet:jstl`
 	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:2.0.0'
-
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation 'mysql:mysql-connector-java:8.0.33'

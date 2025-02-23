@@ -7,10 +7,11 @@
     <resultMap id="ProductResultMap" type="com.product.domain.Product">
         <id property="productCode" column="product_code" />
         <id property="productName" column="product_name" />
-        <id property="categoryCode" column="category_code"/>
+        <id property="categoryName" column="category_name"/>
         <id property="productDate" column="product_date" />
         <id property="unitPrice" column="unit_price" />
         <id property="operationYn" column="operation_yn" />
+        <id property="manufactureAddress" column="manufacture_address" />
         <id property="productionDescription" column="production_description" />
         <id property="productImage" column="product_image" />
         <id property="createdAt" column="created_at" />
@@ -18,7 +19,20 @@
     </resultMap>
 
     <select id="selectAllProduct" resultMap="ProductResultMap">
-        SELECT * FROM product;
+        SELECT
+            p.product_code,
+            p.product_name,
+            c.category_name,
+            p.product_date,
+            p.unit_price,
+            p.operation_yn,
+            p.manufacture_address,
+            p.production_description,
+            p.product_image,
+            p.created_at,
+            p.updated_at
+        FROM product p
+                 JOIN product_category c ON p.category_code = c.category_code;
     </select>
 
     <select id="selectProductsByName" resultMap="ProductResultMap" parameterType="String">
