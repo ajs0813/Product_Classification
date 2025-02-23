@@ -1,4 +1,4 @@
-package com.product.product_classification;
+package com.product;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
