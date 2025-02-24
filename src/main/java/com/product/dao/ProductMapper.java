@@ -23,4 +23,6 @@ public interface ProductMapper {
 
     // 5. 특정 제품을 삭제하는 메서드
     void deleteProduct(String productCode);
+
+    Product selectProductByCode(String productCode);
 }

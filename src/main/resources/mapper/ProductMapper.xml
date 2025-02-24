@@ -36,7 +36,21 @@
     </select>
 
     <select id="selectProductsByName" resultMap="ProductResultMap" parameterType="String">
-        SELECT * FROM product WHERE product_name LIKE CONCAT(#{productName},'%');
+        SELECT
+            p.product_code,
+            p.product_name,
+            c.category_name,
+            p.product_date,
+            p.unit_price,
+            p.operation_yn,
+            p.manufacture_address,
+            p.production_description,
+            p.product_image,
+            p.created_at,
+            p.updated_at
+        FROM product p
+                 JOIN product_category c ON p.category_code = c.category_code
+        WHERE p.product_name LIKE CONCAT(#{productName},'%');
     </select>
 
     <insert id="insertProduct" parameterType="com.product.domain.Product">
@@ -51,6 +65,24 @@
             unit_price = #{unitPrice}, operation_yn = #{operationYn}, production_description = #{productionDescription}, product_image = #{productImage}
         WHERE product_code = #{productCode};
     </update>
+
+    <select id="selectProductByCode" resultMap="ProductResultMap" parameterType="String">
+        SELECT
+            p.product_code,
+            p.product_name,
+            c.category_name,
+            p.product_date,
+            p.unit_price,
+            p.operation_yn,
+            p.manufacture_address,
+            p.production_description,
+            p.product_image,
+            p.created_at,
+            p.updated_at
+        FROM product p
+                 JOIN product_category c ON p.category_code = c.category_code
+        WHERE p.product_code = #{productCode};
+    </select>
 
     <delete id="deleteProduct" parameterType="String">
         DELETE FROM product WHERE product_code = #{productCode};

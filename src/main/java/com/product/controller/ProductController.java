@@ -5,6 +5,8 @@ import com.product.domain.ProductCategory;
 import com.product.service.ProductCategoryService;
 import com.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -34,8 +36,33 @@ public class ProductController {
         return "productList"; // productList.jsp
     }
 
+
+    // 제품명 검색
+    @GetMapping("/list")
+    public String getProductList(@RequestParam(required = false) String productName, Model model){
+        List<Product> productList;
+
+        if(productName != null && !productName.trim().isEmpty()){
+            productList = productService.getProductsByName(productName);
+        } else {
+            productList = productService.getAllProducts();
+        }
+
+        model.addAttribute("productList", productList);
+        return "productList";
+    }
+
+    // 제품 등록 열기
+    @GetMapping("/add")
+    public String addProduct(Model model){
+        List<ProductCategory> categoryList = productCategoryService.getAllCategories();
+        model.addAttribute("categoryList", categoryList);
+        return "productAdd";
+    }
+
+    // 제품 등록 적용
     @PostMapping("/add")
-    public String addProduct(
+    public ResponseEntity<String> addProduct(
             @RequestParam("productCode") String productCode,
             @RequestParam("productName") String productName,
             @RequestParam("categoryCode") String categoryCode,
@@ -46,33 +73,106 @@ public class ProductController {
             @RequestParam("productionDescription") String productionDescription,
             @RequestParam(value = "productImage", required = false) MultipartFile productImage
     ) {
-        String fileName = null;
-        if (productImage != null && !productImage.isEmpty()) {
-            try {
+        try {
+            String fileName = null;
+            if (productImage != null && !productImage.isEmpty()) {
                 fileName = productImage.getOriginalFilename();
-                Path uploadPath = Paths.get("C:/Users/AHN/IdeaProjects/Product_Classification/src/main/resources/static/images/"); // 저장 경로
-                Files.createDirectories(uploadPath); // 디렉토리 없으면 생성
+                Path uploadPath = Paths.get("C:/Users/AHN/IdeaProjects/Product_Classification/src/main/resources/static/images/");
+                Files.createDirectories(uploadPath);
                 Files.copy(productImage.getInputStream(), uploadPath.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+
+            // Product 객체 생성 후 서비스로 전달
+            Product product = new Product();
+            product.setProductCode(productCode);
+            product.setProductName(productName);
+            product.setCategoryCode(categoryCode);
+            product.setProductDate(productDate);
+            product.setUnitPrice(unitPrice);
+            product.setOperationYn(operationYn);
+            product.setManufactureAddress(manufactureAddress);
+            product.setProductionDescription(productionDescription);
+            product.setProductImage(fileName);
+
+            productService.addProduct(product);
+
+            // 성공 응답 반환
+            return ResponseEntity.ok("success");
+        } catch (IOException e) {
+            e.printStackTrace();
+            // 실패 응답 반환
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
         }
+    }
 
-        // Product 객체 생성 후 서비스로 전달
-        Product product = new Product();
-        product.setProductCode(productCode);
-        product.setProductName(productName);
-        product.setCategoryCode(categoryCode);
-        product.setProductDate(productDate);
-        product.setUnitPrice(unitPrice);
-        product.setOperationYn(operationYn);
-        product.setManufactureAddress(manufactureAddress);
-        product.setProductionDescription(productionDescription);
-        product.setProductImage(fileName); // 저장된 파일명 사용
+    // 제품 수정 화면 열기
+    @GetMapping("/update/{productCode}")
+    public String showUpdateForm(@PathVariable String productCode, Model model) {
+        // 제품 정보 조회
+        Product product = productService.getProductsByCode(productCode);
+        List<ProductCategory> categoryList = productCategoryService.getAllCategories();
 
-        productService.addProduct(product);
+        // 모델에 데이터 추가
+        model.addAttribute("product", product);
+        model.addAttribute("categoryList", categoryList);
 
-        return "redirect:/products";
+        return "productUpdate"; // productUpdateForm.jsp로 이동
+    }
+
+    // 제품 수정 적용
+    @PostMapping("/update")
+    public ResponseEntity<String> updateProduct(
+            @RequestParam("productCode") String productCode,
+            @RequestParam("productName") String productName,
+            @RequestParam("categoryCode") String categoryCode,
+            @RequestParam("productDate") String productDate,
+            @RequestParam("unitPrice") int unitPrice,
+            @RequestParam("operationYn") String operationYn,
+            @RequestParam("manufactureAddress") String manufactureAddress,
+            @RequestParam("productionDescription") String productionDescription,
+            @RequestParam(value = "productImage", required = false) MultipartFile productImage
+    ) {
+        try {
+            String fileName = null;
+            if (productImage != null && !productImage.isEmpty()) {
+                fileName = productImage.getOriginalFilename();
+                Path uploadPath = Paths.get("C:/Users/AHN/IdeaProjects/Product_Classification/src/main/resources/static/images/");
+                Files.createDirectories(uploadPath);
+                Files.copy(productImage.getInputStream(), uploadPath.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
+            }
+
+            // 제품 객체 업데이트
+            Product product = productService.getProductsByCode(productCode);
+            product.setProductName(productName);
+            product.setCategoryCode(categoryCode);
+            product.setProductDate(productDate);
+            product.setUnitPrice(unitPrice);
+            product.setOperationYn(operationYn);
+            product.setManufactureAddress(manufactureAddress);
+            product.setProductionDescription(productionDescription);
+            if (fileName != null) {
+                product.setProductImage(fileName);
+            }
+
+            productService.updateProduct(product); // 수정된 제품 정보 저장
+
+            // 성공 응답 반환
+            return ResponseEntity.ok("success");
+        } catch (IOException e) {
+            e.printStackTrace();
+            // 실패 응답 반환
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
+        }
+    }
+    // 제품 삭제
+    @DeleteMapping("/delete/{productCode}")
+    public ResponseEntity<String> deleteProduct(@PathVariable String productCode) {
+        try {
+            productService.deleteProduct(productCode); // 제품 삭제
+            return ResponseEntity.ok("success"); // 성공 응답
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error"); // 실패 응답
+        }
     }
 }
-
