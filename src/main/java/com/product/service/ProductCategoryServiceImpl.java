@@ -28,6 +28,11 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     @Override
+    public ProductCategory getCategoryByCode(String categoryCode) {
+        return productCategoryMapper.selectCategoryByCode(categoryCode);
+    }
+
+    @Override
     public void updateCategory(ProductCategory category){
         productCategoryMapper.updateCategory(category);
     }

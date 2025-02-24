@@ -10,4 +10,5 @@ public interface ProductCategoryService {
     void addCategory(ProductCategory category);
     void updateCategory(ProductCategory category);
     void deleteCategory(String categoryCode);
+    ProductCategory getCategoryByCode(String categoryCode);
 }

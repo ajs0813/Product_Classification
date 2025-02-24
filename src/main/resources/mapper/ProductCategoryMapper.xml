@@ -6,32 +6,42 @@
 <mapper namespace="com.product.dao.ProductCategoryMapper">
     <resultMap id="ProductCategoryResultMap" type="com.product.domain.ProductCategory">
         <id property="categoryCode" column="category_code" />
-        <id property="categoryName" column="category_name" />
-        <id property="deleteYn" column="delete_yn" />
-        <id property="createdAt" column="created_at" />
-        <id property="updatedAt" column="updated_at" />
+        <result property="categoryName" column="category_name" />
+        <result property="deleteYn" column="delete_yn" />
+        <result property="createdAt" column="created_at" />
+        <result property="updatedAt" column="updated_at" />
     </resultMap>
 
+    <!-- 모든 카테고리 조회 -->
     <select id="selectAllCategories" resultMap="ProductCategoryResultMap">
         SELECT * FROM product_category;
     </select>
 
+    <!-- 카테고리명으로 검색 -->
     <select id="selectCategoriesByName" resultMap="ProductCategoryResultMap" parameterType="String">
         SELECT * FROM product_category WHERE category_name LIKE CONCAT(#{categoryName}, '%');
     </select>
 
+    <!-- 카테고리 추가 -->
     <insert id="insertCategory" parameterType="com.product.domain.ProductCategory">
-        INSERT INTO product_category(category_code, category_name, delete_yn)
+        INSERT INTO product_category (category_code, category_name, delete_yn)
         VALUES (#{categoryCode}, #{categoryName}, #{deleteYn});
     </insert>
 
+    <!-- 카테고리 수정 -->
     <update id="updateCategory" parameterType="com.product.domain.ProductCategory">
         UPDATE product_category
         SET category_name = #{categoryName}, delete_yn = #{deleteYn}
         WHERE category_code = #{categoryCode};
     </update>
 
+    <!-- 카테고리 삭제 -->
     <delete id="deleteCategory" parameterType="String">
-        DELETE FROM product_category WHERE category_code=#{categoryCode};
+        DELETE FROM product_category WHERE category_code = #{categoryCode};
     </delete>
+
+    <!-- 카테고리 코드로 조회 -->
+    <select id="selectCategoryByCode" resultMap="ProductCategoryResultMap" parameterType="String">
+        SELECT * FROM product_category WHERE category_code = #{categoryCode};
+    </select>
 </mapper>

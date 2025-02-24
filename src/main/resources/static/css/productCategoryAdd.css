@@ -1,0 +1,63 @@
+/* 전체 body 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+/* 페이지 제목 */
+h2 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+/* 폼 스타일 */
+form {
+    width: 80%;
+    max-width: 400px; /* 카테고리 등록 폼은 상대적으로 작게 조정 */
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 폼 레이블 스타일 */
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 입력 필드 스타일 */
+form input[type="text"],
+form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* 버튼 스타일 */
+form button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* 버튼 hover 효과 */
+form button:hover {
+    background-color: #218838;
+}

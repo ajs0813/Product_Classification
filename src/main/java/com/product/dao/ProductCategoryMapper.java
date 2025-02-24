@@ -21,4 +21,6 @@ public interface ProductCategoryMapper {
 
     // 5. 특정 제품 분류를 삭제하는 메서드 (제품 분류 코드로 삭제)
     void deleteCategory(String categoryCode);
+
+    ProductCategory selectCategoryByCode(String categoryCode);
 }

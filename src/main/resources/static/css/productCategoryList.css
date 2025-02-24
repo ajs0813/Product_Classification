@@ -1,0 +1,97 @@
+/* 전체 body 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* 제목 스타일 */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+/* 테이블 스타일 */
+table.categoryList {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+table.categoryList th, table.categoryList td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+table.categoryList th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* 버튼 기본 스타일 */
+button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #e2e6ea;
+}
+
+/* 검색 폼 스타일 */
+#search-form {
+    display: flex;
+    align-items: center;
+}
+
+/* 검색 컨테이너 */
+.search-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 10%;
+}
+
+.search-container input[type="text"] {
+    padding: 8px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.search-container button[type="submit"] {
+    padding: 8px 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-container button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* 카테고리 등록 버튼 */
+.category-register-btn {
+    display: block;
+    width: fit-content;
+    margin: 40px auto;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+.category-register-btn:hover {
+    background-color: #28a745;
+}
