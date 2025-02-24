@@ -1,5 +1,6 @@
 package com.product.service;
 
+import com.product.dao.ProductCategoryMapper;
 import com.product.dao.ProductMapper;
 import com.product.domain.Product;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -6,16 +6,16 @@
 <mapper namespace="com.product.dao.ProductMapper">
     <resultMap id="ProductResultMap" type="com.product.domain.Product">
         <id property="productCode" column="product_code" />
-        <id property="productName" column="product_name" />
-        <id property="categoryName" column="category_name"/>
-        <id property="productDate" column="product_date" />
-        <id property="unitPrice" column="unit_price" />
-        <id property="operationYn" column="operation_yn" />
-        <id property="manufactureAddress" column="manufacture_address" />
-        <id property="productionDescription" column="production_description" />
-        <id property="productImage" column="product_image" />
-        <id property="createdAt" column="created_at" />
-        <id property="updatedAt" column="updated_at" />
+        <result property="productName" column="product_name" />
+        <result property="categoryName" column="category_name" />
+        <result property="productDate" column="product_date" />
+        <result property="unitPrice" column="unit_price" />
+        <result property="operationYn" column="operation_yn" />
+        <result property="manufactureAddress" column="manufacture_address" />
+        <result property="productionDescription" column="production_description" />
+        <result property="productImage" column="product_image" />
+        <result property="createdAt" column="created_at" />
+        <result property="updatedAt" column="updated_at" />
     </resultMap>
 
     <select id="selectAllProduct" resultMap="ProductResultMap">
@@ -40,8 +40,10 @@
     </select>
 
     <insert id="insertProduct" parameterType="com.product.domain.Product">
-        INSERT INTO product (product_code, product_name, category_code, product_date, unit_price, operation_yn, production_description, product_image)
-        VALUES (#{productCode}, #{productName}, #{categoryCode}, #{productDate}, #{unitPrice}, #{operationYn}, #{productionDescription}, #{productImage});
+        INSERT INTO product
+        (product_code, product_name, category_code, product_date, unit_price, operation_yn, manufacture_address, production_description, product_image)
+        VALUES
+            (#{productCode}, #{productName}, #{categoryCode}, #{productDate}, #{unitPrice}, #{operationYn}, #{manufactureAddress}, #{productionDescription}, #{productImage});
     </insert>
     <update id="updateProduct" parameterType="com.product.domain.Product">
         UPDATE product

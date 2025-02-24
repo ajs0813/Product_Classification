@@ -1,6 +1,7 @@
 package com.product.dao;
 
 import com.product.domain.Product;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

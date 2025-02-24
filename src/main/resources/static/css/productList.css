@@ -35,6 +35,7 @@ table.productList img {
     height: auto;
 }
 
+/* 검색 컨테이너 */
 .search-container {
     display: flex;
     justify-content: flex-end;
@@ -62,6 +63,7 @@ table.productList img {
     background-color: #218838;
 }
 
+/* 제품 등록 버튼 - 테이블 외부 */
 .product-register-btn {
     display: block;
     width: fit-content;
@@ -134,7 +136,7 @@ form input, form select, form textarea {
     border-radius: 4px;
 }
 
-/* 버튼 스타일 */
+/* 폼 버튼 스타일 */
 form button {
     background-color: #4CAF50;
     color: white;
@@ -149,8 +151,8 @@ form button:hover {
     background-color: #45a049;
 }
 
-/* 제품 등록 버튼 스타일 */
-.product-register-btn {
+/* 팝업 내 제품 등록 버튼 */
+#popup-product-register-btn {
     display: inline-block;
     padding: 10px 20px;
     background-color: #4CAF50;
@@ -160,7 +162,10 @@ form button:hover {
     margin-top: 20px;
 }
 
-.product-register-btn:hover {
+#popup-product-register-btn:hover {
     background-color: #45a049;
 }
 
+textarea {
+    resize: none;
+}

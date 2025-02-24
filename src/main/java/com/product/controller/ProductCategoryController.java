@@ -2,6 +2,7 @@ package com.product.controller;
 
 import com.product.domain.ProductCategory;
 import com.product.service.ProductCategoryService;
+import com.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,8 @@ import java.util.List;
 public class ProductCategoryController {
     @Autowired
     private ProductCategoryService productCategoryService;
+    @Autowired
+    private ProductService productService;
 
     @GetMapping
     public List<ProductCategory> getAllCategories(){

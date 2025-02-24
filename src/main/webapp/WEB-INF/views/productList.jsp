@@ -34,7 +34,7 @@
             <td>${product.operationYn}</td>
             <td>${product.manufactureAddress}</td>
             <td>${product.productionDescription}</td>
-            <td><img src="${product.productImage}" alt="제품 이미지" width="100" /></td>
+            <td><img src="/images/${product.productImage}" alt="제품 이미지" width="100" /></td>
         </tr>
     </c:forEach>
 </table>
@@ -42,10 +42,9 @@
 <!-- 제품 등록 버튼 -->
 <a href="javascript:void(0);" class="product-register-btn" onclick="openPopup()">제품 등록</a>
 
-<!-- 팝업창 -->
-<div id="popupForm" class="popup">
+<!-- 제품 등록 버튼 누르면 팝업창 -->
+<div id="popupForm" class="popup" onclick="closePopup(event)">
     <div class="popup-content">
-        <span class="close" onclick="closePopup()">&times;</span>
         <h2>제품 등록</h2>
         <form action="/products/add" method="post" enctype="multipart/form-data">
             <label for="productCode">제품 코드</label>
@@ -99,6 +98,14 @@
     // jQuery를 사용한 팝업 닫기
     function closePopup() {
         $('#popupForm').hide();
+    }
+
+    // 팝업을 닫는 함수
+    function closePopup(event) {
+        // 팝업 외부를 클릭했을 때만 닫힘
+        if (event.target === document.getElementById("popupForm")) {
+            $('#popupForm').hide();
+        }
     }
 </script>
 </html>
