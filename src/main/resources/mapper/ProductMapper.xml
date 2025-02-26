@@ -7,6 +7,7 @@
     <resultMap id="ProductResultMap" type="com.product.domain.Product">
         <id property="productCode" column="product_code" />
         <result property="productName" column="product_name" />
+        <result property="categoryCode" column="category_code" />
         <result property="categoryName" column="category_name" />
         <result property="productDate" column="product_date" />
         <result property="unitPrice" column="unit_price" />
@@ -23,6 +24,7 @@
         SELECT
             p.product_code,
             p.product_name,
+            c.category_code,
             c.category_name,
             p.product_date,
             p.unit_price,
@@ -41,6 +43,7 @@
         SELECT
             p.product_code,
             p.product_name,
+            c.category_code,
             c.category_name,
             p.product_date,
             p.unit_price,

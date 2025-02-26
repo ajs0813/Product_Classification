@@ -11,7 +11,7 @@
 
 <!-- 제품명 검색바-->
 <div class="search-container">
-    <form id ="search-form" action="/products/list" method="get">
+    <form id="search-form" action="/products/list" method="get">
         <input type="text" name="productName" placeholder="제품명을 입력하세요" value="${param.productName}"/>
         <button type="submit">검색</button>
     </form>
@@ -22,6 +22,7 @@
     <tr>
         <th>제품 코드</th>
         <th>제품명</th>
+        <th>분류코드</th>
         <th>분류</th>
         <th>생산일자</th>
         <th>단가</th>
@@ -29,18 +30,29 @@
         <th>생산지 주소</th>
         <th>제품설명</th>
         <th>제품이미지</th>
+        <th>등록일자</th>
+        <th>수정일자</th>
     </tr>
     <c:forEach var="product" items="${productList}">
         <tr>
-            <td><a href="javascript:void(0);" onclick="openUpdateProductWindow('${product.productCode}')">${product.productCode}</a></td>
-            <td><a href="javascript:void(0);" onclick="openUpdateProductWindow('${product.productCode}')">${product.productName}</a></td>
+            <td><a href="javascript:void(0);"
+                   onclick="openUpdateProductWindow('${product.productCode}')">${product.productCode}</a></td>
+            <td><a href="javascript:void(0);"
+                   onclick="openUpdateProductWindow('${product.productCode}')">${product.productName}</a></td>
+            <td>${product.categoryCode}</td>
             <td>${product.categoryName}</td>
             <td>${product.productDate}</td>
             <td><fmt:formatNumber value="${product.unitPrice}" pattern="#,###"/>원</td>
             <td>${product.operationYn}</td>
             <td>${product.manufactureAddress}</td>
             <td>${product.productionDescription}</td>
-            <td><img src="/images/${product.productImage}" alt="제품 이미지" width="100"/></td>
+            <td>
+                <c:if test="${not empty product.productImage}">
+                    <img src="/images/${product.productImage}" alt="제품 이미지" width="100"/>
+                </c:if>
+            </td>
+            <td>${product.createdAt}</td>
+            <td>${product.updatedAt}</td>
         </tr>
     </c:forEach>
 </table>

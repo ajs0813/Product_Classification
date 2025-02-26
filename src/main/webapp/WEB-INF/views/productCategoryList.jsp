@@ -22,12 +22,16 @@
         <th>제품분류 코드</th>
         <th>제품분류명</th>
         <th>삭제 여부</th>
+        <th>등록일자</th>
+        <th>수정일자</th>
     </tr>
     <c:forEach var="category" items="${categoryList}">
         <tr>
             <td><a href="javascript:void(0);" onclick="openUpdateCategoryWindow('${category.categoryCode}')">${category.categoryCode}</a></td>
             <td><a href="javascript:void(0);" onclick="openUpdateCategoryWindow('${category.categoryCode}')">${category.categoryName}</a></td>
             <td>${category.deleteYn}</td>
+            <td>${category.createdAt}</td>
+            <td>${category.updatedAt}</td>
         </tr>
     </c:forEach>
 </table>
