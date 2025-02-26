@@ -41,18 +41,18 @@
                    onclick="openUpdateProductWindow('${product.productCode}')">${product.productName}</a></td>
             <td>${product.categoryCode}</td>
             <td>${product.categoryName}</td>
-            <td>${product.productDate}</td>
+            <td><fmt:formatDate value="${product.productDate}" pattern="yyyy-MM-dd"/></td>
             <td><fmt:formatNumber value="${product.unitPrice}" pattern="#,###"/>원</td>
             <td>${product.operationYn}</td>
             <td>${product.manufactureAddress}</td>
             <td>${product.productionDescription}</td>
             <td>
                 <c:if test="${not empty product.productImage}">
-                    <img src="/images/${product.productImage}" alt="제품 이미지" width="100"/>
+                    <img src="/${product.productImage}" alt="제품 이미지" width="100"/>
                 </c:if>
             </td>
-            <td>${product.createdAt}</td>
-            <td>${product.updatedAt}</td>
+            <td><fmt:formatDate value="${product.createdAt}" pattern="yyyy-MM-dd HH:mm"/></td>
+            <td><fmt:formatDate value="${product.updatedAt}" pattern="yyyy-MM-dd HH:mm"/></td>
         </tr>
     </c:forEach>
 </table>

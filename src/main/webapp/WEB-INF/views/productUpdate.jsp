@@ -40,7 +40,9 @@
     <textarea id="productionDescription" name="productionDescription">${product.productionDescription}</textarea>
 
     <label for="productImage">제품 이미지</label>
-    <img src="/images/${product.productImage}" alt="현재 이미지" width="100"/>
+    <c:if test="${not empty product.productImage}">
+        <img src="/${product.productImage}" alt="제품 이미지" width="100"/>
+    </c:if>
     <input type="file" id="productImage" name="productImage" accept="image/*">
 
     <button type="button" id="submitBtn">수정</button>

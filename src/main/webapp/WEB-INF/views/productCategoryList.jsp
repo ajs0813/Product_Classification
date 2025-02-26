@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>제품 분류 목록</title>
@@ -30,8 +31,8 @@
             <td><a href="javascript:void(0);" onclick="openUpdateCategoryWindow('${category.categoryCode}')">${category.categoryCode}</a></td>
             <td><a href="javascript:void(0);" onclick="openUpdateCategoryWindow('${category.categoryCode}')">${category.categoryName}</a></td>
             <td>${category.deleteYn}</td>
-            <td>${category.createdAt}</td>
-            <td>${category.updatedAt}</td>
+            <td><fmt:formatDate value="${category.createdAt}" pattern="yyyy-MM-dd HH:mm"/></td>
+            <td><fmt:formatDate value="${category.updatedAt}" pattern="yyyy-MM-dd HH:mm"/></td>
         </tr>
     </c:forEach>
 </table>

@@ -5,6 +5,7 @@ import com.product.domain.ProductCategory;
 import com.product.service.ProductCategoryService;
 import com.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -65,7 +67,7 @@ public class ProductController {
             @RequestParam("productCode") String productCode,
             @RequestParam("productName") String productName,
             @RequestParam("categoryCode") String categoryCode,
-            @RequestParam("productDate") String productDate,
+            @RequestParam("productDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date productDate,
             @RequestParam("unitPrice") int unitPrice,
             @RequestParam("operationYn") String operationYn,
             @RequestParam("manufactureAddress") String manufactureAddress,
@@ -76,7 +78,8 @@ public class ProductController {
             String fileName = null;
             if (productImage != null && !productImage.isEmpty()) {
                 fileName = productImage.getOriginalFilename();
-                Path uploadPath = Paths.get("C:/Users/AHN/IdeaProjects/Product_Classification/src/main/resources/static/images/");
+
+                Path uploadPath = Paths.get("C:/product_images/");
                 Files.createDirectories(uploadPath);
                 Files.copy(productImage.getInputStream(), uploadPath.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
             }
@@ -119,7 +122,7 @@ public class ProductController {
             @RequestParam("productCode") String productCode,
             @RequestParam("productName") String productName,
             @RequestParam("categoryCode") String categoryCode,
-            @RequestParam("productDate") String productDate,
+            @RequestParam("productDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date productDate,
             @RequestParam("unitPrice") int unitPrice,
             @RequestParam("operationYn") String operationYn,
             @RequestParam("manufactureAddress") String manufactureAddress,
@@ -130,7 +133,8 @@ public class ProductController {
             String fileName = null;
             if (productImage != null && !productImage.isEmpty()) {
                 fileName = productImage.getOriginalFilename();
-                Path uploadPath = Paths.get("C:/Users/AHN/IdeaProjects/Product_Classification/src/main/resources/static/images/");
+
+                Path uploadPath = Paths.get("C:/product_images/");
                 Files.createDirectories(uploadPath);
                 Files.copy(productImage.getInputStream(), uploadPath.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
             }

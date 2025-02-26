@@ -14,12 +14,15 @@
 
     <!-- 제품 분류 목록 조회 -->
     <select id="selectAllCategories" resultMap="ProductCategoryResultMap">
-        SELECT * FROM product_category;
+        SELECT * FROM product_category
+        ORDER BY category_code ASC;
     </select>
 
     <!-- 제품 분류명 검색 조회 -->
     <select id="selectCategoriesByName" resultMap="ProductCategoryResultMap" parameterType="String">
-        SELECT * FROM product_category WHERE category_name LIKE CONCAT(#{categoryName}, '%');
+        SELECT * FROM product_category
+        WHERE category_name LIKE CONCAT(#{categoryName}, '%')
+        ORDER BY category_code ASC;
     </select>
 
     <!-- 제품 분류 등록 -->
