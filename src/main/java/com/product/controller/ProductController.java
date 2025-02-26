@@ -36,10 +36,9 @@ public class ProductController {
         return "productList"; // productList.jsp
     }
 
-
     // 제품명 검색
     @GetMapping("/list")
-    public String getProductList(@RequestParam(required = false) String productName, Model model){
+    public String getProductsListByName(@RequestParam(required = false) String productName, Model model){
         List<Product> productList;
 
         if(productName != null && !productName.trim().isEmpty()){
@@ -82,7 +81,6 @@ public class ProductController {
                 Files.copy(productImage.getInputStream(), uploadPath.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
             }
 
-            // Product 객체 생성 후 서비스로 전달
             Product product = new Product();
             product.setProductCode(productCode);
             product.setProductName(productName);
@@ -96,27 +94,23 @@ public class ProductController {
 
             productService.addProduct(product);
 
-            // 성공 응답 반환
             return ResponseEntity.ok("success");
         } catch (IOException e) {
             e.printStackTrace();
-            // 실패 응답 반환
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
         }
     }
 
     // 제품 수정 화면 열기
     @GetMapping("/update/{productCode}")
-    public String showUpdateForm(@PathVariable String productCode, Model model) {
-        // 제품 정보 조회
+    public String getProductsUpdate(@PathVariable String productCode, Model model) {
         Product product = productService.getProductsByCode(productCode);
         List<ProductCategory> categoryList = productCategoryService.getAllCategories();
 
-        // 모델에 데이터 추가
         model.addAttribute("product", product);
         model.addAttribute("categoryList", categoryList);
 
-        return "productUpdate"; // productUpdateForm.jsp로 이동
+        return "productUpdate";
     }
 
     // 제품 수정 적용
@@ -141,7 +135,6 @@ public class ProductController {
                 Files.copy(productImage.getInputStream(), uploadPath.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
             }
 
-            // 제품 객체 업데이트
             Product product = productService.getProductsByCode(productCode);
             product.setProductName(productName);
             product.setCategoryCode(categoryCode);
@@ -154,13 +147,11 @@ public class ProductController {
                 product.setProductImage(fileName);
             }
 
-            productService.updateProduct(product); // 수정된 제품 정보 저장
+            productService.updateProduct(product);
 
-            // 성공 응답 반환
             return ResponseEntity.ok("success");
         } catch (IOException e) {
             e.printStackTrace();
-            // 실패 응답 반환
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
         }
     }
@@ -168,11 +159,11 @@ public class ProductController {
     @DeleteMapping("/delete/{productCode}")
     public ResponseEntity<String> deleteProduct(@PathVariable String productCode) {
         try {
-            productService.deleteProduct(productCode); // 제품 삭제
-            return ResponseEntity.ok("success"); // 성공 응답
+            productService.deleteProduct(productCode);
+            return ResponseEntity.ok("success");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error"); // 실패 응답
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
         }
     }
 }

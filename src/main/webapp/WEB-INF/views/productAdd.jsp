@@ -10,7 +10,7 @@
 <h2>제품 등록</h2>
 <form id="productForm" action="/products/add" method="post" enctype="multipart/form-data">
     <label for="productCode">제품 코드</label>
-    <input type="text" id="productCode" name="productCode" required>
+    <input type="text" id="productCode" name="productCode" placeholder="중복되지 않는 코드를 입력해주세요." required>
 
     <label for="productName">제품명</label>
     <input type="text" id="productName" name="productName" required>
@@ -25,13 +25,13 @@
     <label for="productDate">생산일자</label>
     <input type="date" id="productDate" name="productDate" required>
 
-    <label for="unitPrice">단가</label>
+    <label for="unitPrice">제품 단가</label>
     <input type="number" id="unitPrice" name="unitPrice" required>
 
     <label for="operationYn">운영 여부</label>
     <select id="operationYn" name="operationYn" required>
-        <option value="Y">운영</option>
-        <option value="N">운영 안함</option>
+        <option value="Y">Y</option>
+        <option value="N">N</option>
     </select>
 
     <label for="manufactureAddress">생산지 주소</label>
@@ -57,18 +57,16 @@
 
             // AJAX로 폼 제출
             $.ajax({
-                url: "/products/add", // 폼 제출 URL
+                url: "/products/add",
                 type: "POST",
                 data: formData,
-                processData: false, // FormData 처리 방지
-                contentType: false, // Content-Type 설정 방지
+                processData: false,
+                contentType: false,
                 success: function (response) {
-                    // 서버 응답 성공 시
                     window.opener.location.reload(); // 부모 페이지 새로고침
                     window.close(); // 현재 창 닫기
                 },
                 error: function (xhr, status, error) {
-                    // 서버 응답 실패 시
                     alert("제품 등록에 실패했습니다. 다시 시도해주세요.");
                     console.error(error);
                 }

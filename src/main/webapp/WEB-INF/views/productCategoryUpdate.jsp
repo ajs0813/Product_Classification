@@ -2,15 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>카테고리 수정</title>
+    <title>제품 분류 수정</title>
 </head>
 <link rel="stylesheet" type="text/css" href="/css/productCategoryAdd.css">
 <body>
-<h2>카테고리 수정</h2>
+<h2>제품 분류 수정</h2>
 <form id="categoryForm" action="/categories/update" method="post">
     <input type="hidden" id="categoryCode" name="categoryCode" value="${category.categoryCode}">
 
-    <label for="categoryName">카테고리명</label>
+    <label for="categoryName">제품 분류명</label>
     <input type="text" id="categoryName" name="categoryName" value="${category.categoryName}" required>
 
     <label for="deleteYn">삭제 여부</label>
@@ -29,22 +29,19 @@
     $(document).ready(function () {
         // 수정 버튼 클릭 이벤트
         $("#submitBtn").click(function () {
-            // 폼 데이터 생성
             const formData = $("#categoryForm").serialize();
 
             // AJAX로 폼 제출
             $.ajax({
-                url: "/categories/update", // 폼 제출 URL
+                url: "/categories/update",
                 type: "POST",
                 data: formData,
                 success: function (response) {
-                    // 서버 응답 성공 시
                     window.opener.location.reload(); // 부모 페이지 새로고침
                     window.close(); // 현재 창 닫기
                 },
                 error: function (xhr, status, error) {
-                    // 서버 응답 실패 시
-                    alert("카테고리 수정에 실패했습니다. 다시 시도해주세요.");
+                    alert("제품 분류 수정에 실패했습니다. 다시 시도해주세요.");
                     console.error(error);
                 }
             });
@@ -52,21 +49,19 @@
 
         // 삭제 버튼 클릭 이벤트
         $("#deleteBtn").click(function () {
-            if (confirm("정말로 이 카테고리를 삭제하시겠습니까?")) {
-                const categoryCode = $("#categoryCode").val(); // 카테고리 코드 가져오기
+            if (confirm("정말로 이 제품 분류를 삭제하시겠습니까?")) {
+                const categoryCode = $("#categoryCode").val();
 
                 // AJAX로 삭제 요청
                 $.ajax({
-                    url: "/categories/delete/" + categoryCode, // 삭제 요청 URL
+                    url: "/categories/delete/" + categoryCode,
                     type: "DELETE",
                     success: function (response) {
-                        // 서버 응답 성공 시
                         window.opener.location.reload(); // 부모 페이지 새로고침
                         window.close(); // 현재 창 닫기
                     },
                     error: function (xhr, status, error) {
-                        // 서버 응답 실패 시
-                        alert("카테고리 삭제에 실패했습니다. 다시 시도해주세요.");
+                        alert("제품 분류 삭제에 실패했습니다. 다시 시도해주세요.");
                         console.error(error);
                     }
                 });

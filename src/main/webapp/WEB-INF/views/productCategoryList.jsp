@@ -8,19 +8,19 @@
 <body>
 <h1>카테고리 목록</h1>
 
-<!-- 카테고리명 검색바 -->
+<!-- 제품 분류명 검색바 -->
 <div class="search-container">
     <form id="search-form" action="/categories/list" method="get">
-        <input type="text" name="categoryName" placeholder="카테고리명을 입력하세요" value="${param.categoryName}"/>
+        <input type="text" name="categoryName" placeholder="제품 분류명을 입력하세요" value="${param.categoryName}"/>
         <button type="submit">검색</button>
     </form>
 </div>
 
-<!-- 카테고리 리스트 -->
+<!-- 제품 분류 리스트 -->
 <table class="categoryList">
     <tr>
-        <th>카테고리 코드</th>
-        <th>카테고리명</th>
+        <th>제품분류 코드</th>
+        <th>제품분류명</th>
         <th>삭제 여부</th>
     </tr>
     <c:forEach var="category" items="${categoryList}">
@@ -32,20 +32,20 @@
     </c:forEach>
 </table>
 
-<!-- 카테고리 등록 버튼 -->
-<button onclick="openAddCategoryWindow()" class="category-register-btn">카테고리 등록</button>
+<!-- 제품 분류 등록 버튼 -->
+<button onclick="openAddCategoryWindow()" class="category-register-btn">제품 분류 등록</button>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    // 카테고리 등록 창 열기
+    // 제품 분류 등록 창 열기
     function openAddCategoryWindow() {
-        window.open('/categories/add', '카테고리 등록', 'width=600,height=400');
+        window.open('/categories/add', '제품 분류 등록', 'width=600,height=400');
     }
 
-    // 카테고리 수정 창 열기
+    // 제품 분류 수정 창 열기
     function openUpdateCategoryWindow(categoryCode) {
-        window.open('/categories/update/' + categoryCode, '카테고리 수정', 'width=600,height=400');
+        window.open('/categories/update/' + categoryCode, '제품 분류 수정', 'width=600,height=400');
     }
 </script>
 </html>

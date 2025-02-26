@@ -18,6 +18,7 @@ public class ProductCategoryController {
     @Autowired
     private ProductCategoryService productCategoryService;
 
+    // 제품 분류 목록 화면
     @GetMapping
     public String getAllCategories(Model model){
         List<ProductCategory> categoryList = productCategoryService.getAllCategories();
@@ -25,7 +26,7 @@ public class ProductCategoryController {
         return "productCategoryList";
     }
 
-    // 카테고리명 검색
+    // 제품 분류 검색
     @GetMapping("/list")
     public String getCategoriesByName(@RequestParam(required = false) String categoryName, Model model) {
         List<ProductCategory> categoryList;
@@ -37,17 +38,16 @@ public class ProductCategoryController {
         }
 
         model.addAttribute("categoryList", categoryList);
-        return "productCategoryList"; // productCategoryList.jsp로 이동
+        return "productCategoryList";
     }
 
-
-    // 카테고리 등록 화면 열기
+    // 제품 분류 등록 열기
     @GetMapping("/add")
     public String addCategory(Model model) {
-        return "productCategoryAdd"; // productCategoryAdd.jsp로 이동
+        return "productCategoryAdd";
     }
 
-    // 카테고리 등록 처리
+    // 제품 분류 등록 적용
     @PostMapping("/add")
     public ResponseEntity<String> addCategory(
             @RequestParam("categoryCode") String categoryCode,
@@ -62,24 +62,22 @@ public class ProductCategoryController {
 
             productCategoryService.addCategory(category);
 
-            // 성공 응답 반환
             return ResponseEntity.ok("success");
         } catch (Exception e) {
             e.printStackTrace();
-            // 실패 응답 반환
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
         }
     }
 
-    // 카테고리 수정 화면 열기
+    // 제품 분류 수정 화면 열기
     @GetMapping("/update/{categoryCode}")
-    public String showUpdateForm(@PathVariable String categoryCode, Model model) {
+    public String getCategoriesUpdate(@PathVariable String categoryCode, Model model) {
         ProductCategory category = productCategoryService.getCategoryByCode(categoryCode);
         model.addAttribute("category", category);
-        return "productCategoryUpdate"; // productCategoryUpdate.jsp로 이동
+        return "productCategoryUpdate";
     }
 
-    // 카테고리 수정 처리
+    // 제품 분류 수정 적용
     @PostMapping("/update")
     public ResponseEntity<String> updateCategory(
             @RequestParam("categoryCode") String categoryCode,
@@ -92,24 +90,24 @@ public class ProductCategoryController {
             category.setCategoryName(categoryName);
             category.setDeleteYn(deleteYn);
 
-            productCategoryService.updateCategory(category); // 수정된 카테고리 저장
+            productCategoryService.updateCategory(category);
 
-            return ResponseEntity.ok("success"); // 성공 응답
+            return ResponseEntity.ok("success");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error"); // 실패 응답
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
         }
     }
 
-    // 카테고리 삭제 처리
+    // 제품 분류 삭제
     @DeleteMapping("/delete/{categoryCode}")
     public ResponseEntity<String> deleteCategory(@PathVariable String categoryCode) {
         try {
-            productCategoryService.deleteCategory(categoryCode); // 카테고리 삭제
-            return ResponseEntity.ok("success"); // 성공 응답
+            productCategoryService.deleteCategory(categoryCode);
+            return ResponseEntity.ok("success");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error"); // 실패 응답
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
         }
     }
 }

@@ -1,16 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>카테고리 등록</title>
+    <title>제품 분류 등록</title>
 </head>
 <link rel="stylesheet" type="text/css" href="/css/productCategoryAdd.css">
 <body>
-<h2>카테고리 등록</h2>
+<h2>제품 분류 등록</h2>
 <form id="categoryForm" action="/categories/add" method="post">
-    <label for="categoryCode">카테고리 코드</label>
-    <input type="text" id="categoryCode" name="categoryCode" required>
+    <label for="categoryCode">제품 분류 코드</label>
+    <input type="text" id="categoryCode" name="categoryCode"placeholder="중복되지 않는 코드를 입력해주세요." required>
 
-    <label for="categoryName">카테고리명</label>
+    <label for="categoryName">제품 분류명</label>
     <input type="text" id="categoryName" name="categoryName" required>
 
     <label for="deleteYn">삭제 여부</label>
@@ -43,7 +43,7 @@
                     window.close(); // 현재 창 닫기
                 },
                 error: function (xhr, status, error) {
-                    alert("카테고리 등록에 실패했습니다. 다시 시도해주세요.");
+                    alert("제품 분류 등록에 실패했습니다. 다시 시도해주세요.");
                     console.error(error);
                 }
             });

@@ -29,8 +29,8 @@
 
     <label for="operationYn">운영 여부</label>
     <select id="operationYn" name="operationYn" required>
-        <option value="Y" <c:if test="${product.operationYn == 'Y'}">selected</c:if>>운영</option>
-        <option value="N" <c:if test="${product.operationYn == 'N'}">selected</c:if>>운영 안함</option>
+        <option value="Y" <c:if test="${product.operationYn == 'Y'}">selected</c:if>>Y</option>
+        <option value="N" <c:if test="${product.operationYn == 'N'}">selected</c:if>>N</option>
     </select>
 
     <label for="manufactureAddress">생산지 주소</label>
@@ -53,23 +53,20 @@
     $(document).ready(function () {
         // 수정 버튼 클릭 이벤트
         $("#submitBtn").click(function () {
-            // 폼 데이터 생성
             const formData = new FormData($("#productForm")[0]);
 
             // AJAX로 폼 제출
             $.ajax({
-                url: "/products/update", // 폼 제출 URL
+                url: "/products/update",
                 type: "POST",
                 data: formData,
-                processData: false, // FormData 처리 방지
-                contentType: false, // Content-Type 설정 방지
+                processData: false,
+                contentType: false,
                 success: function (response) {
-                    // 서버 응답 성공 시
                     window.opener.location.reload(); // 부모 페이지 새로고침
                     window.close(); // 현재 창 닫기
                 },
                 error: function (xhr, status, error) {
-                    // 서버 응답 실패 시
                     alert("제품 수정에 실패했습니다. 다시 시도해주세요.");
                     console.error(error);
                 }
@@ -79,19 +76,17 @@
         // 삭제 버튼 클릭 이벤트
         $("#deleteBtn").click(function () {
             if (confirm("정말로 이 제품을 삭제하시겠습니까?")) {
-                const productCode = $("#productCode").val(); // 제품 코드 가져오기
+                const productCode = $("#productCode").val();
 
                 // AJAX로 삭제 요청
                 $.ajax({
-                    url: "/products/delete/" + productCode, // 삭제 요청 URL
+                    url: "/products/delete/" + productCode,
                     type: "DELETE",
                     success: function (response) {
-                        // 서버 응답 성공 시
                         window.opener.location.reload(); // 부모 페이지 새로고침
                         window.close(); // 현재 창 닫기
                     },
                     error: function (xhr, status, error) {
-                        // 서버 응답 실패 시
                         alert("제품 삭제에 실패했습니다. 다시 시도해주세요.");
                         console.error(error);
                     }
