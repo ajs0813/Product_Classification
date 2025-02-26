@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>카테고리 목록</title>
+    <title>제품 분류 목록</title>
 </head>
 <link rel="stylesheet" type="text/css" href="/css/productCategoryList.css">
 <body>
