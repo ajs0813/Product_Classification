@@ -6,7 +6,7 @@
 </head>
 <link rel="stylesheet" type="text/css" href="/css/productCategoryList.css">
 <body>
-<h1>카테고리 목록</h1>
+<h1>제품 분류 목록</h1>
 
 <!-- 제품 분류명 검색바 -->
 <div class="search-container">
