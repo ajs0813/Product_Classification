@@ -35,7 +35,7 @@ public class ProductController {
         List<Product> productList = productService.getAllProducts();
         model.addAttribute("productList", productList);
         model.addAttribute("categoryList", productCategoryService.getAllCategories());
-        return "productList"; // productList.jsp
+        return "productList";
     }
 
     // 제품명 검색
